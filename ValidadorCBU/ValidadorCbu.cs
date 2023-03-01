@@ -14,7 +14,7 @@ public class ValidadorCbu
     int[] patronCuenta = new int[] { 3, 9, 7, 1, 3, 9, 7, 1, 3, 9, 7, 1, 3 };
     string bancosBBDD { get; set; } = "";
     public string? bancoActual { get; set; } = "";
-	string Cbu { get; init; }
+    string Cbu { get; init; }
 
     // Bloque 1
     string CodigoBanco { get; set; } = "";
@@ -24,15 +24,15 @@ public class ValidadorCbu
     // Bloque 2
     string CodigoCuenta { get; set; } = "";
     string DigitoControl2 { get; set; } = "";
-	public ValidadorCbu(string cbu)
-	{
+    public ValidadorCbu(string cbu)
+    {
         /*
         * CBU 285 0015 7 4009545123498 8
         * i   012 3456 7 8901234567890 1
         *     BBB SSSS D CCCCCCCCCCCCC D
         *     3   4    1 13            1
-        */   
-        
+        */
+
         if (ValidarDigitos(cbu) &&
             cbu.Length == CantidadNumerosCBU)
         {
@@ -67,7 +67,7 @@ public class ValidadorCbu
         }
         return true;
     }
-    
+
     private bool ValidarCodigoBanco()
     {
         // cargar los bancos del txt
@@ -88,7 +88,7 @@ public class ValidadorCbu
         using (StreamReader sr = new StreamReader(path))
         {
             string? linea;
-            while ((linea = sr.ReadLine()) != null)
+            while ((linea = sr.ReadLine()) is not null)
             {
                 bancos += linea;
                 bancos += "\n";
@@ -100,18 +100,16 @@ public class ValidadorCbu
 
     private string? CargarBancoActual(string bancosBBDD)
     {
-        // creara diccionario
-        // cargar diccionario
-        // validar y obtener banco
         var bancosPorID = new Dictionary<string, string>();
         string[] bancos = bancosBBDD.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
 
         foreach (var banco in bancos)
         {
             string[] codigoYBanco = banco.Split("\t");
             bancosPorID.Add(codigoYBanco[0], codigoYBanco[1]);
         }
-                
+
         if (bancosPorID.TryGetValue(CodigoBanco, out var _bancoActual))
         {
             return _bancoActual;
@@ -127,8 +125,8 @@ public class ValidadorCbu
 
         for (int i = 0; i < codigoBancoYSucursal.Length; i++)
         {
-            suma += 
-                int.Parse(codigoBancoYSucursal[i].ToString()) * 
+            suma +=
+                int.Parse(codigoBancoYSucursal[i].ToString()) *
                 int.Parse(patronBancoSucursal[i].ToString());
         }
 

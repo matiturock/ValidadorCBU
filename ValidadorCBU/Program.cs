@@ -7,8 +7,19 @@ class Program
         Console.WriteLine("VALIDAR CBU");
         const string CBU = "2850015740095451234988";
 
+        Console.WriteLine(CBU);
 
-        Console.WriteLine(validadorCbu);
-        Console.WriteLine(validadorCbu.bancoActual);
+        try
+        {
+            var validador = new ValidadorCbu(CBU);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ha ocurrido una excepcion: {ex.Message}");
+        }
+        finally 
+        { 
+            Console.WriteLine("Fin del programa");
+        }
     }
 }
